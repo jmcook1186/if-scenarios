@@ -1,12 +1,10 @@
 {
-  "title": "Exercise 1",
-  "backend": {
-    "imageid": "ubuntu"
-  },
-  "steps": [
-    {
-      "title": "List all pods",
-      "text": "step1.md"
+  "title": "Kubernetes 1node",
+  "description": "Use a simple one node Kubernetes cluster and let user list all pods",
+  "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "foreground.sh"
     }
-  ]
+  }
 }
