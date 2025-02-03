@@ -19,7 +19,6 @@ npm -v # Should print "10.9.2".
 npm install -g npm@11.1.0
 npm install -g @grnsft/if
 
-mkdir if && cd if
-curl -o- https://raw.githubusercontent.com/Green-Software-Foundation/if-db/refs/heads/main/manifests/if-course/manifests/if-course-example-1.yml
-mv if-course-example-1.yml manifest-1.yml
- 
+# mkdir if && cd if
+# curl -o- https://raw.githubusercontent.com/Green-Software-Foundation/if-db/refs/heads/main/manifests/if-course/manifests/if-course-example-1.yml
+# mv if-course-example-1.yml manifest-1.yml
