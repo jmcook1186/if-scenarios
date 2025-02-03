@@ -1,6 +1,12 @@
 {
-    "title": "Exercise 1",
-    "backend": {
-      "imageid": "ubuntu"
+  "title": "Exercise 1",
+  "backend": {
+    "imageid": "ubuntu"
+  },
+  "steps": [
+    {
+      "title": "List all pods",
+      "text": "step1.md"
     }
-  }
+  ]
+}
