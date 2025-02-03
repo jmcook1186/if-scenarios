@@ -16,10 +16,8 @@ nvm current # Should print "v22.13.1".
 npm -v # Should print "10.9.2".
 
 # Install Impact Framework
-echo "installing IF"
 npm install -g npm@11.1.0
 npm install -g @grnsft/if
 
-# mkdir if && cd if
-# curl -o- https://raw.githubusercontent.com/Green-Software-Foundation/if-db/refs/heads/main/manifests/if-course/manifests/if-course-example-1.yml
-# mv if-course-example-1.yml manifest-1.yml
+# Download course assets
+wget https://raw.githubusercontent.com/Green-Software-Foundation/if-db/refs/heads/main/manifests/if-course/outputs/if-course-example-1.yaml

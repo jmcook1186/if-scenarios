@@ -6,5 +6,8 @@
       "text": "intro.md",
       "foreground": "foreground.sh"
     }
+  },
+  "backend": {
+    "imageid": "ubuntu"
   }
 }
