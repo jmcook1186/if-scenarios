@@ -16,6 +16,7 @@ nvm current # Should print "v22.13.1".
 npm -v # Should print "10.9.2".
 
 # Install Impact Framework
+echo "installing IF"
 npm install -g npm@11.1.0
 npm install -g @grnsft/if
 
