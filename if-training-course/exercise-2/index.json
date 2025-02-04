@@ -1,0 +1,30 @@
+{
+  "title": "Impact Framework: Exercise 1",
+  "description": "Run your first manifest file!",
+  "details": {
+    "intro": {
+      "text": "text.md",
+      "foreground": "foreground.sh"
+    },
+    "steps": [
+      {
+        "title": "View the manifest file",
+        "text": "step1.md"
+      },
+      {
+        "title": "Defining plugins",
+        "text": "step2.md"
+      },
+      {
+        "title": "Run the manifest file",
+        "text": "step3.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
