@@ -8,29 +8,30 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-# Download and install Node.js:
-echo "*** Installing NodeJS ***"
+# *** Installing NodeJS ***
+#
 nvm install 22
 
 # Verify the Node.js version:
+#
 node -v # Should print "v22.13.1".
 nvm current # Should print "v22.13.1".
 
 # Verify npm version:
+#
 npm -v # Should print "10.9.2".
 
-echo "*** Installing Impact Framework ***"
-echo
-
-# Install Impact Framework
+# Installing Impact Framework
+#
 npm install -g npm@11.1.0
 npm install -g @grnsft/if
 
-# Download course assets
-echo "*** Downloading manifest file ***"
-echo
+# *** Downloading manifest file ***"
+#
 wget https://raw.githubusercontent.com/Green-Software-Foundation/if-db/refs/heads/main/manifests/if-course/outputs/if-course-example-1.yaml
 mv if-course-example-1.yaml manifest-1.yaml
 
 
-echo "*** Setup complete! ***"
+#
+#*** Setup complete! ***
+#
