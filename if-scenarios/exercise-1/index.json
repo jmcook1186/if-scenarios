@@ -8,8 +8,16 @@
     },
     "steps": [
       {
-        "title": "Step 1",
+        "title": "View the manifest file",
         "text": "step1.md"
+      },
+      {
+        "title": "Defining plugins",
+        "text": "step2.md"
+      },
+      {
+        "title": "Run the manifest file",
+        "text": "step2.md"
       }
     ],
     "finish": {
