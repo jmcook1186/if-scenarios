@@ -1,6 +1,6 @@
 {
-  "title": "Kubernetes 1node",
-  "description": "Use a simple one node Kubernetes cluster and let user list all pods",
+  "title": "Impact Framework: Exercise 1",
+  "description": "Run your first manifest file!",
   "details": {
     "intro": {
       "text": "text.md",
