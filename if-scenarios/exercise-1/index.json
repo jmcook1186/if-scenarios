@@ -5,16 +5,16 @@
     "intro": {
       "text": "text.md",
       "foreground": "foreground.sh"
+    },
+    "steps": [
+      {
+        "title": "Step 1",
+        "text": "step1.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
     }
-  },
-  "steps": [
-    {
-      "title": "Step 1",
-      "text": "step1.md"
-    }
-  ],
-  "finish": {
-    "text": "finish.md"
   },
   "backend": {
     "imageid": "ubuntu"
