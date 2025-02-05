@@ -1,36 +1,31 @@
-Let's take a look inside the manifest file.
+Start by opening the `boilerplate.yml` file in your editor.
 
-You can either switch over to the `editor` tab in the right-hand panel and click on `manifest-1.yaml` to open the file in the editor, or you can type `nano manifest-1.yaml` to open it in the terminal.
+The calculation we want to express in the manifest file is the product of energy consumption (kWh) and grid carbon intensity (gCO2e/kWh) to yield carbon emissions (gCO2e).
 
-Either way, you will see the manifest file's yaml data presented on the screen.
+The grid carbon intensity is taken to be 163 g / kWh.
+The energy consumption is 0.05 kWh.
 
-*This file contains everything you need to compute the environmental impacts of this hypothetical website.*
+## 1. Choose a plugin
 
-At the very top of the file, the manifest is given a title, description and, optionally, any useful tags.
+There are two plugins in the standard library that can multiply two terms together: `Coefficient` and `Multiply`.
+The difference between them is that `Coefficient` multiplies a named value from the `inputs` array by a coefficient whose value is provided in the plugin config, whereas `Multiply` multiplies two named values from the `inputs` array. For this example, let's use `Coefficient`.
 
-The manifest is divided into two parts: the **context** and the **tree**.
+## 2. Create an instance of the plugin
 
-The context is where the manifest execution is configured, the manifest metadata is set and the plugins that will be executed are instantiated.
+The manifest contains a section called `plugins`. This is where you create instances of plugins that will be executed when Impact Framework runs. This is where your plugin instances are named and configured. In this example, we'll assume the energy consumption data is found in `inputs` and the grid carbon intensity is a coefficient whose value is known in advance and can be provided in the plugin `config`.
 
-The tree is where the individual system components are defined, including the specific pipelines of plugins that will operate and the data collected about a component is provided. These can be organized into a heirarchy, with parent and child nodes nested to any depth. For exampel, you might have a component called `servers` with 100 individual servers defined as child nodes. However they are laid out, each component has the same simple structure, as follows:
+To create an instance of `Coefficient` named `multiply-energy-by-carbon-intensity-component-1` that will grab `energy` dtaa from `inputs`, multiply it by `163` and return the result to `outputs` as `carbon`, you can add the following to the `plugins` section of the manifest:
 
 ```yaml
-component-1:
-  pipeline:
-    compute:
-    - a-plugin-instance
-  defaults:
-  inputs:
-    - timestamp: '2024-07-22T00:00:00'
-      duration: 86400
+multiply-energy-by-carbon-intensity-component-1:
+  method: Coefficient
+  path: "builtin"
+  config:
+    input-parameter: energy
+    coefficient: 163
+    output-parameter: carbon
 ```
 
-See if you can identify where the context and tree sections start and stop. try to identify some individual system components in the tree.
+## 3. Define a component
 
-In the next steps, you will explore the manifest and understand how it is structured.
-
-## Test your learning
-
-1) What is the title of this manifest file?
-2) True or False: individual system components are defined 
-3) How many individual system components are there in this manifest?
+Now you have a plugin instance, you need a component where it will run.
