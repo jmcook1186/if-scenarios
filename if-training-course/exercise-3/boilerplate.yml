@@ -1,0 +1,11 @@
+name: energy-to-carbon
+description: minimal demo
+tags:
+initialize:
+plugins:
+tree:
+  children:
+    component1:
+      pipeline:
+        compute:
+      inputs:
