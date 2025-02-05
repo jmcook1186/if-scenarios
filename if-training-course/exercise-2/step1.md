@@ -61,6 +61,6 @@ Now you can update `boilerplate.yml`. Instantiate the plugin and create the comp
 
 Run the manifest using:
 
-```
-if-run -m manifest.yml
+```sh
+if-run -m manifest.yml -o outputs.yml
 ```

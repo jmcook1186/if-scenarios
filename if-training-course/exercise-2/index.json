@@ -8,16 +8,12 @@
     },
     "steps": [
       {
-        "title": "Setting up a calculation",
+        "title": "Creating your manifest",
         "text": "step1.md"
       },
       {
-        "title": "Defining plugins",
+        "title": "Examining the output file",
         "text": "step2.md"
-      },
-      {
-        "title": "Run the manifest file",
-        "text": "step3.md"
       }
     ],
     "finish": {
