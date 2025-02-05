@@ -1,0 +1,26 @@
+{
+  "title": "Impact Framework: Exercise 5",
+  "description": "More complex pipelines: end-to-end SCI",
+  "details": {
+    "intro": {
+      "text": "text.md",
+      "foreground": "foreground.sh"
+    },
+    "steps": [
+      {
+        "title": "Creating your manifest",
+        "text": "step1.md"
+      },
+      {
+        "title": "Examining the output file",
+        "text": "step2.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}

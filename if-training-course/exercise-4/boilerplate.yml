@@ -1,0 +1,30 @@
+name: memory-utilization-to-carbon
+description: two-step demo
+tags:
+initialize:
+  plugins:
+  memory-to-energy-component-1:
+    method: Multiply
+    path: builtin
+    config:
+      input-parameters: [memory-utilization, memory-coefficient]
+      output-parameter: energy
+  energy-to-carbon-component-1:
+    method: Multiply
+    path: builtin
+    config:
+      input-parameters: [energy, carbon-intensity]
+      output-parameter: carbon
+tree:
+  children:
+    component-1:
+      pipeline:
+        compute:
+          - memory-to-energy-component-1
+          - energy-to-carbon-component-1
+      inputs:
+        - timestamp: 2023-08-06T00:00
+          duration: 3600
+          memory-utilization: 8.8
+          memory-coefficient: 0.00039
+          carbon-intensity: 163
