@@ -1,4 +1,4 @@
-In this exercise we will build on the experience you gained in the Quick Start and do some more complex tasks with Impact Framework.
+In this exercise we will build a manifest with multiple plugins. The aim is to observe how the outputs of one plugin become inputs to the next.
 
 On the right hand panel you have terminal access to an environment with Impact Framework already installed. 
 
