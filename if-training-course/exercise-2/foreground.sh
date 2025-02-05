@@ -26,10 +26,10 @@ npm -v # Should print "10.9.2".
 npm install -g npm@11.1.0
 npm install -g @grnsft/if
 
-# *** Downloading manifest file ***"
+# *** Downloading manifest files ***"
 #
-wget https://raw.githubusercontent.com/Green-Software-Foundation/if-db/refs/heads/main/manifests/if-course/outputs/if-course-example-1.yaml
-mv if-course-example-1.yaml manifest-1.yaml
+wget https://raw.githubusercontent.com/jmcook1186/if-scenarios/refs/heads/main/if-training-course/exercise-2/manifest-example.yml
+wget https://raw.githubusercontent.com/jmcook1186/if-scenarios/refs/heads/main/if-training-course/exercise-2/boilerplate.yml
 
 
 #
