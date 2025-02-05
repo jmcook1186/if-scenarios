@@ -1,10 +1,10 @@
-To better understand the connection between manifest files, Impact Framework and the visualizer, we will regenerate the data you have seen in the visualizer from its manifest file.
+In this exercise we will build on the experience you gained in the Quick Start and do some more complex tasks with Impact Framework.
 
-On the right-hand side of this screen you have access to a terminal and a code editor. Impact framework is already installed, and the right manifest file is saved at the following path:
+On the right hand panel you have terminal access to an environment with Impact Framework already installed. 
 
-`./manifest-1.yaml`
+You also have two files:
 
+`boilerplate.yml` : this contains the basic skeleton of a manifest file, ready for you to complete.
+`manifest-example.yml`: this is a completed example that you can refer to when you need to.
 
-This file contains everything you need to compute the environmental impacts of this hypothetical website.
-
-On the next page, we'll open the manifest file and explore its contents.
+This is all you need to complete this exercise!
