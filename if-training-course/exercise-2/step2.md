@@ -31,4 +31,4 @@ outputs:
 ## Test your learning
 
 1) Try adding another plugin to your pipeline. It doesn't matter what it does, as long as it adds another entry in `outputs`. Observe the additional output being added to `outputs`
-2) Try passing your output file to Imapct framework. Notice that Impact Framework can run your output file as if it were a fresh manifest! 
+2) Try passing your output file to Impact framework. Notice that Impact Framework can run your output file as if it were a fresh manifest! 
