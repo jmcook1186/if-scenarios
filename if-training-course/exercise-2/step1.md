@@ -28,4 +28,39 @@ multiply-energy-by-carbon-intensity-component-1:
 
 ## 3. Define a component
 
-Now you have a plugin instance, you need a component where it will run.
+Now you have a plugin instance, you need a component where it will run. In this example, there is only one component. In a real manifest, it's likely that you'll have many components, possibly nested in complex arrangements.
+
+A component is just a block of yaml that conforms to a simple structure. It has a `name`, `pipeline` and `inputs`. There is also an optional `defaults` field.
+
+```yaml
+component-name:
+  pipeline:
+    compute:
+    defaults:
+    inputs:
+
+```
+
+You can give your component any unique name. The pipeline is a set of plugins you want to execute on your input data. They are listed in the `pipeline` section in the order that they will executed. You can add constants to `defaults` - they will be automatically copied into every element in `inputs` at runtime. This is functionaly equivalent to adding the key/value pair to every element in your `inputs`, but quicker and less error prone. `inputs` is where you provide your input data - it can have any set of key/value pairs, but every element must have a `timestep` and `duration`.
+
+The compelted component for this example looks as follows:
+
+```yaml
+component-1:
+  pipeline:
+    compute:
+      - multiply-energy-by-carbon-intensity-component-1
+    inputs:
+      - timestamp: 2023-08-06T00:00
+        duration: 3600
+        energy: 0.05
+```
+
+
+Now you can update `boilerplate.yml`. Instantiate the plugin and create the component. If you need help, there is a completed manifest available in `manifest-example.yml`.
+
+Run the manifest using:
+
+```
+if-run -m manifest.yml
+```
