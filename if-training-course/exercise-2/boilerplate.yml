@@ -7,4 +7,5 @@ tree:
   children:
     component1:
       pipeline:
+        compute:
       inputs:
