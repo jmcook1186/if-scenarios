@@ -59,8 +59,19 @@ component-1:
 
 Now you can update `boilerplate.yml`. Instantiate the plugin and create the component. If you need help, there is a completed manifest available in `manifest-example.yml`.
 
+## Run the manifest
+
 Run the manifest using:
 
 ```sh
 if-run -m manifest.yml -o outputs.yml
 ```
+
+
+## Test your learning
+
+1) Try swapping out the `Coefficient` plugin for `Multiply` to give the same result.
+   
+2) Try varying the values for `energy` and `grid-carbon-intensity` and observe the changing output
+   
+3) Try adding components and observing how each component's pipeline is executed independently.
