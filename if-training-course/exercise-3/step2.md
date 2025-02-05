@@ -1,35 +1,17 @@
-In the previous step, you created an output file, `outputs.yml`.
+## View the outputs
 
-Here, we'll look at that file and aim to understand what Impact Framework *did* with your manifest file.
+You just created `outputs.yml`. 
 
-## Manifest data
+Open that file in your editor.
 
-The first thing to notice is that the output file contains all the same information that was in your manifest. All the plugin declarations, configuration, components, the layout of the tree - it's all there, identically to the original manifest. This is important because it allows others to re-execute your output file. The manifest data is your "working out" - having it here alongside your output data allows others to audit your process as well as your numbers.
+You will see that two new values have been added to your `outputs`: `energy` and `carbon`.
 
-Crucially, there are several new sections that have been added to the manifest. These new sections are:
+Notice that `energy` was not available in the original manifest. It was created when the `memory-to-energy-component-1` plugin ran. Then it was used as the input to `energy-to-carbon-component-1`.
 
-## `execution`
+If you remove `memory-to-energy-component-1` from your pipeline and run the manifest again, it will fail. This is because `energy` is a necessary input to `energy-to-carbon-component-1`. By omitting the first plugin, you are starving the second plugin of its input data.
 
-The `execution` section captures the details of the runtime environment that just executed your manifest. This includes details about your operating system, Nodejs and Imapct Framework versions, the date and time the manifest was run, and the packages that are installed in your environment. There is also a `status` field that can either be `success` or `fail`. If the status is `fail`, then the error message is captured and reported here so you can see why your run failed to execute.
-
-## `outputs`
-
-For each component, the results from the execution of each plugin is added to an `outputs` section. In this example, there is only one plugin that returns a single value, so `outputs` is identical to `inputs` but with one additional field - `carbon`.
-
-```yaml
-inputs:
-- timestamp: 2023-08-06T00:00
-    duration: 3600
-    energy: 0.05
-outputs:
-- timestamp: 2023-08-06T00:00
-    duration: 3600
-    energy: 0.05
-    carbon: 8.15
-```
+This is an important concept in Impact Framework because it means the order of plugin execution in each component is very important.
 
 ## Test your learning
 
-1) Try adding another plugin to your pipeline. It doesn't matter what it does, as long as it adds another entry in `outputs`. Observe the additional output being added to `outputs`
-   
-2) Try passing your output file to Impact framework. Notice that Impact Framework can run your output file as if it were a fresh manifest! 
+1) Try adding another plugin that depends on a `carbon` value being available. Notice that this plugin will run successfully if it is placed in the last position in the pipeline, but it will fail if it is placed anywhere else.

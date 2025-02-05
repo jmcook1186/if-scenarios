@@ -59,6 +59,8 @@ component-1:
 
 Now you can update `boilerplate.yml`. Instantiate the plugin and create the component. If you need help, there is a completed manifest available in `manifest-example.yml`.
 
+Save your manifest as `manifest.yml`
+
 ## Run the manifest
 
 Run the manifest using:
