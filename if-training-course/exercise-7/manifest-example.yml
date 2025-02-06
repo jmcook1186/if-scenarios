@@ -2,6 +2,11 @@ name: memory-utilization-to-carbon
 
 description: two-step demo
 tags:
+aggregation:
+  metrics:
+    - carbon
+    - sci
+  type: both
 initialize:
   plugins:
     memory-to-energy:
@@ -16,6 +21,27 @@ initialize:
       config:
         input-parameters: [energy, carbon-intensity]
         output-parameter: operational-carbon
+      parameter-metadata:
+        inputs:
+          energy:
+            unit: kWh
+            description: Energy consumed in kWh.
+            aggregation-method:
+                time: sum
+                component: sum  
+          carbon-intensity:
+            unit: gCO2e/kWh
+            description: Mass of carbon dioxide equivalent emitted per kWh of energy consumed.
+            aggregation-method:
+                time: sum
+                component: sum      
+        outputs:
+          carbon:
+            unit: gCO2e
+            description: Mass of CO2e emitted.
+            aggregation-method:
+                time: sum
+                component: sum   
     interpolate-power-curve:
       method: Interpolation
       path: "builtin"
@@ -46,9 +72,44 @@ initialize:
           - memory-energy-kwh
           - cpu-energy-kwh
         output-parameter: energy
+    embodied-carbon:
+      path: builtin
+      method: SciEmbodied
+    sum-carbon-components:
+      path: "builtin"
+      method: Sum
+      config:
+        input-parameters:
+          - operational-carbon
+          - embodied-carbon
+        output-parameter: carbon
+    sci:
+      method: Sci
+      path: "builtin"
+      config:
+        functional-unit: site-visits
+      parameter-metadata:
+        inputs:
+          site-visits:
+            unit: visits
+            description: number of unique visits per timestep.
+            aggregation-method:
+              time: sum
+              component: sum       
+        outputs:
+          sci:
+            unit: gCO2e/visit
+            description: Mass of CO2e emitted per site visit.
+            aggregation-method:
+              time: avg
+              component: sum   
 tree:
   children:
     component-1:
+      defaults:
+        vCPUs: 2
+        memory: 16
+        SSD: 1
       pipeline:
         compute:
           - memory-to-energy
@@ -57,6 +118,9 @@ tree:
           - power-to-energy-kwh
           - sum-energy-components
           - energy-to-carbon
+          - embodied-carbon
+          - sum-carbon-components
+          - sci
       inputs:
         - timestamp: 2023-08-01T00:00
           duration: 3600
@@ -65,17 +129,104 @@ tree:
           tdp: 205
           memory-coefficient: 0.00039
           carbon-intensity: 163
+          site-visits: 210
         - timestamp: 2023-08-02T00:00
           duration: 3600
-          memory-utilization: 2.1
-          cpu-utilization: 60
+          memory-utilization: 18
+          cpu-utilization: 45
           tdp: 205
           memory-coefficient: 0.00039
           carbon-intensity: 163
+          site-visits: 130
         - timestamp: 2023-08-03T00:00
           duration: 3600
-          memory-utilization: 19.5
-          cpu-utilization: 70
+          memory-utilization: 25
+          cpu-utilization: 90
           tdp: 205
           memory-coefficient: 0.00039
           carbon-intensity: 163
+          site-visits: 100
+    component-2:
+      children:
+        child-component-1:
+          defaults:
+            vCPUs: 2
+            memory: 16
+            SSD: 1
+          pipeline:
+            compute:
+              - memory-to-energy
+              - interpolate-power-curve
+              - tdp-multiplier-to-power
+              - power-to-energy-kwh
+              - sum-energy-components
+              - energy-to-carbon
+              - embodied-carbon
+              - sum-carbon-components
+              - sci
+          inputs:
+            - timestamp: 2023-08-01T00:00
+              duration: 3600
+              memory-utilization: 8.8
+              cpu-utilization: 80
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 210
+            - timestamp: 2023-08-02T00:00
+              duration: 3600
+              memory-utilization: 2.1
+              cpu-utilization: 60
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 130
+            - timestamp: 2023-08-03T00:00
+              duration: 3600
+              memory-utilization: 19.5
+              cpu-utilization: 70
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 100
+        child-component-2:
+          defaults:
+            vCPUs: 2
+            memory: 16
+            SSD: 1
+          pipeline:
+            compute:
+              - memory-to-energy
+              - interpolate-power-curve
+              - tdp-multiplier-to-power
+              - power-to-energy-kwh
+              - sum-energy-components
+              - energy-to-carbon
+              - embodied-carbon
+              - sum-carbon-components
+              - sci
+          inputs:
+            - timestamp: 2023-08-01T00:00
+              duration: 3600
+              memory-utilization: 5.8
+              cpu-utilization: 70
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 210
+            - timestamp: 2023-08-02T00:00
+              duration: 3600
+              memory-utilization: 23
+              cpu-utilization: 50
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 130
+            - timestamp: 2023-08-03T00:00
+              duration: 3600
+              memory-utilization: 19.5
+              cpu-utilization: 40
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 100

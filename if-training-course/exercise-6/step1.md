@@ -3,6 +3,7 @@ So far, your manifests have only had a single element in the inputs array. Howev
 Try creating multiple entries in your `inputs` array.
 
 Remember, each timestep must have a unique `timestamp` and a `duration`. 
+
 You can vary the values for each field in each element.
 
 Save your manifest as `manifest.yml` and run it using:

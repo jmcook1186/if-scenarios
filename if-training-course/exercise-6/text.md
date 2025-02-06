@@ -1,6 +1,4 @@
-In the previous exercise you created a complex pipeline for estimating carbon emissions. Here, you will turn that carbon estimate into an SCI score using a functional unit. The aim is to understand the relationship between carbon footprint and SCI.
-
-On the right hand panel you have terminal access to an environment with Impact Framework already installed. 
+So far, your manifests have only had a single element in the inputs array. However, many applications will actually track usage metrics over time. Therefore `inputs` will often be a time series. This exercise shows how to handle multiple timesteps.
 
 You also have two files:
 
