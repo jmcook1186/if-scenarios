@@ -22,3 +22,5 @@ Try it now with:
 ```
 if-run -m manifest.yml -o outputs.yaml
 ```
+
+Your SCI score was 0.11 gCO2e/visit!
