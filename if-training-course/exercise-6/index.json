@@ -1,0 +1,26 @@
+{
+  "title": "Impact Framework: Exercise 6",
+  "description": "Multiple observations",
+  "details": {
+    "intro": {
+      "text": "text.md",
+      "foreground": "foreground.sh"
+    },
+    "steps": [
+      {
+        "title": "Add timesteps to inputs",
+        "text": "step1.md"
+      },
+      {
+        "title": "Examining the output file",
+        "text": "step2.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}

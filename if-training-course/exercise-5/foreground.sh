@@ -28,8 +28,8 @@ npm install -g @grnsft/if
 
 # *** Downloading manifest files ***"
 #
-wget https://raw.githubusercontent.com/jmcook1186/if-scenarios/refs/heads/main/if-training-course/exercise-3/manifest-example.yml
-wget https://raw.githubusercontent.com/jmcook1186/if-scenarios/refs/heads/main/if-training-course/exercise-3/boilerplate.yml
+wget https://raw.githubusercontent.com/jmcook1186/if-scenarios/refs/heads/main/if-training-course/exercise-5/manifest-example.yml
+wget https://raw.githubusercontent.com/jmcook1186/if-scenarios/refs/heads/main/if-training-course/exercise-5/boilerplate.yml
 
 
 #
