@@ -1,0 +1,30 @@
+{
+  "title": "Impact Framework: Exercise 6",
+  "description": "Aggregation",
+  "details": {
+    "intro": {
+      "text": "text.md",
+      "foreground": "foreground.sh"
+    },
+    "steps": [
+      {
+        "title": "Configure aggregation",
+        "text": "step1.md"
+      },
+      {
+        "title": "Changing the aggregation method",
+        "text": "step2.md"
+      },
+      {
+        "title": "Examining the outputs",
+        "text": "step3.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "ubuntu"
+  }
+}
