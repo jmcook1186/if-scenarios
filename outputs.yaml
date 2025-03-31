@@ -1,0 +1,526 @@
+name: memory-utilization-to-carbon
+description: two-step demo
+tags: null
+aggregation:
+  metrics:
+    - carbon
+    - sci
+  type: both
+initialize:
+  plugins:
+    memory-to-energy:
+      path: builtin
+      method: Multiply
+      config:
+        input-parameters:
+          - memory-utilization
+          - memory-coefficient
+        output-parameter: memory-energy-kwh
+    energy-to-carbon:
+      path: builtin
+      method: Multiply
+      config:
+        input-parameters:
+          - energy
+          - carbon-intensity
+        output-parameter: operational-carbon
+      parameter-metadata:
+        inputs:
+          energy:
+            unit: kWh
+            description: Energy consumed in kWh.
+            aggregation-method:
+              time: sum
+              component: sum
+          carbon-intensity:
+            unit: gCO2e/kWh
+            description: >-
+              Mass of carbon dioxide equivalent emitted per kWh of energy
+              consumed.
+            aggregation-method:
+              time: sum
+              component: sum
+        outputs:
+          carbon:
+            unit: gCO2e
+            description: Mass of CO2e emitted.
+            aggregation-method:
+              time: sum
+              component: sum
+    interpolate-power-curve:
+      path: builtin
+      method: Interpolation
+      config:
+        method: linear
+        x:
+          - 0
+          - 10
+          - 50
+          - 100
+        'y':
+          - 0.12
+          - 0.32
+          - 0.75
+          - 1.02
+        input-parameter: cpu-utilization
+        output-parameter: tdp-multiplier
+    tdp-multiplier-to-power:
+      path: builtin
+      method: Multiply
+      config:
+        input-parameters:
+          - tdp-multiplier
+          - tdp
+        output-parameter: cpu-power
+    power-to-energy-kwh:
+      path: builtin
+      method: Divide
+      config:
+        numerator: cpu-power
+        denominator: 1000
+        output: cpu-energy-kwh
+    sum-energy-components:
+      path: builtin
+      method: Sum
+      config:
+        input-parameters:
+          - memory-energy-kwh
+          - cpu-energy-kwh
+        output-parameter: energy
+    embodied-carbon:
+      path: builtin
+      method: SciEmbodied
+    sum-carbon-components:
+      path: builtin
+      method: Sum
+      config:
+        input-parameters:
+          - operational-carbon
+          - embodied-carbon
+        output-parameter: carbon
+    sci:
+      path: builtin
+      method: Sci
+      config:
+        functional-unit: site-visits
+      parameter-metadata:
+        inputs:
+          site-visits:
+            unit: visits
+            description: number of unique visits per timestep.
+            aggregation-method:
+              time: sum
+              component: sum
+        outputs:
+          sci:
+            unit: gCO2e/visit
+            description: Mass of CO2e emitted per site visit.
+            aggregation-method:
+              time: avg
+              component: sum
+execution:
+  command: >-
+    /home/joe/.nvm/versions/node/v21.4.0/bin/node
+    /home/joe/.nvm/versions/node/v21.4.0/bin/if-run -m
+    if-training-course/exercise-7/manifest-example.yml -o outputs.yml
+  environment:
+    if-version: 0.7.2
+    os: linux
+    os-version: 5.15.0-130-generic
+    node-version: 21.4.0
+    date-time: 2025-02-19T16:16:16.744Z (UTC)
+    dependencies:
+      - next@14.2.4
+      - nextra-theme-blog@2.13.4
+      - nextra@2.13.4
+      - react-dom@18.3.1
+      - react@18.3.1
+      - typescript@5.3.3
+  status: success
+tree:
+  children:
+    component-1:
+      defaults:
+        vCPUs: 2
+        memory: 16
+        SSD: 1
+      pipeline:
+        compute:
+          - memory-to-energy
+          - interpolate-power-curve
+          - tdp-multiplier-to-power
+          - power-to-energy-kwh
+          - sum-energy-components
+          - energy-to-carbon
+          - embodied-carbon
+          - sum-carbon-components
+          - sci
+      inputs:
+        - timestamp: 2023-08-01T00:00
+          duration: 3600
+          memory-utilization: 8.8
+          cpu-utilization: 80
+          tdp: 205
+          memory-coefficient: 0.00039
+          carbon-intensity: 163
+          site-visits: 210
+        - timestamp: 2023-08-02T00:00
+          duration: 3600
+          memory-utilization: 18
+          cpu-utilization: 45
+          tdp: 205
+          memory-coefficient: 0.00039
+          carbon-intensity: 163
+          site-visits: 130
+        - timestamp: 2023-08-03T00:00
+          duration: 3600
+          memory-utilization: 25
+          cpu-utilization: 90
+          tdp: 205
+          memory-coefficient: 0.00039
+          carbon-intensity: 163
+          site-visits: 100
+      outputs:
+        - timestamp: 2023-08-01T00:00
+          duration: 3600
+          memory-utilization: 8.8
+          cpu-utilization: 80
+          tdp: 205
+          memory-coefficient: 0.00039
+          carbon-intensity: 163
+          site-visits: 210
+          vCPUs: 2
+          memory: 16
+          SSD: 1
+          memory-energy-kwh: 0.003432
+          tdp-multiplier: 0.912
+          cpu-power: 186.96
+          cpu-energy-kwh: 0.18696000000000002
+          energy: 0.190392
+          operational-carbon: 31.033896000000002
+          ssd: 0
+          hdd: 0
+          gpu: 0
+          usage-ratio: 1
+          embodied-carbon: 31.39269406392694
+          carbon: 62.42659006392694
+          sci: 0.29726947649489016
+        - timestamp: 2023-08-02T00:00
+          duration: 3600
+          memory-utilization: 18
+          cpu-utilization: 45
+          tdp: 205
+          memory-coefficient: 0.00039
+          carbon-intensity: 163
+          site-visits: 130
+          vCPUs: 2
+          memory: 16
+          SSD: 1
+          memory-energy-kwh: 0.00702
+          tdp-multiplier: 0.69625
+          cpu-power: 142.73125000000002
+          cpu-energy-kwh: 0.14273125
+          energy: 0.14975125
+          operational-carbon: 24.40945375
+          ssd: 0
+          hdd: 0
+          gpu: 0
+          usage-ratio: 1
+          embodied-carbon: 31.39269406392694
+          carbon: 55.802147813926936
+          sci: 0.42924729087636104
+        - timestamp: 2023-08-03T00:00
+          duration: 3600
+          memory-utilization: 25
+          cpu-utilization: 90
+          tdp: 205
+          memory-coefficient: 0.00039
+          carbon-intensity: 163
+          site-visits: 100
+          vCPUs: 2
+          memory: 16
+          SSD: 1
+          memory-energy-kwh: 0.00975
+          tdp-multiplier: 0.966
+          cpu-power: 198.03
+          cpu-energy-kwh: 0.19803
+          energy: 0.20778000000000002
+          operational-carbon: 33.868140000000004
+          ssd: 0
+          hdd: 0
+          gpu: 0
+          usage-ratio: 1
+          embodied-carbon: 31.39269406392694
+          carbon: 65.26083406392695
+          sci: 0.6526083406392695
+      aggregated:
+        carbon: 183.4895719417808
+        sci: 0.45970836933684023
+    component-2:
+      children:
+        child-component-1:
+          defaults:
+            vCPUs: 2
+            memory: 16
+            SSD: 1
+          pipeline:
+            compute:
+              - memory-to-energy
+              - interpolate-power-curve
+              - tdp-multiplier-to-power
+              - power-to-energy-kwh
+              - sum-energy-components
+              - energy-to-carbon
+              - embodied-carbon
+              - sum-carbon-components
+              - sci
+          inputs:
+            - timestamp: 2023-08-01T00:00
+              duration: 3600
+              memory-utilization: 8.8
+              cpu-utilization: 80
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 210
+            - timestamp: 2023-08-02T00:00
+              duration: 3600
+              memory-utilization: 2.1
+              cpu-utilization: 60
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 130
+            - timestamp: 2023-08-03T00:00
+              duration: 3600
+              memory-utilization: 19.5
+              cpu-utilization: 70
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 100
+          outputs:
+            - timestamp: 2023-08-01T00:00
+              duration: 3600
+              memory-utilization: 8.8
+              cpu-utilization: 80
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 210
+              vCPUs: 2
+              memory: 16
+              SSD: 1
+              memory-energy-kwh: 0.003432
+              tdp-multiplier: 0.912
+              cpu-power: 186.96
+              cpu-energy-kwh: 0.18696000000000002
+              energy: 0.190392
+              operational-carbon: 31.033896000000002
+              ssd: 0
+              hdd: 0
+              gpu: 0
+              usage-ratio: 1
+              embodied-carbon: 31.39269406392694
+              carbon: 62.42659006392694
+              sci: 0.29726947649489016
+            - timestamp: 2023-08-02T00:00
+              duration: 3600
+              memory-utilization: 2.1
+              cpu-utilization: 60
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 130
+              vCPUs: 2
+              memory: 16
+              SSD: 1
+              memory-energy-kwh: 0.0008190000000000001
+              tdp-multiplier: 0.804
+              cpu-power: 164.82000000000002
+              cpu-energy-kwh: 0.16482000000000002
+              energy: 0.165639
+              operational-carbon: 26.999157
+              ssd: 0
+              hdd: 0
+              gpu: 0
+              usage-ratio: 1
+              embodied-carbon: 31.39269406392694
+              carbon: 58.391851063926936
+              sci: 0.4491680851071303
+            - timestamp: 2023-08-03T00:00
+              duration: 3600
+              memory-utilization: 19.5
+              cpu-utilization: 70
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 100
+              vCPUs: 2
+              memory: 16
+              SSD: 1
+              memory-energy-kwh: 0.007605
+              tdp-multiplier: 0.858
+              cpu-power: 175.89
+              cpu-energy-kwh: 0.17589
+              energy: 0.183495
+              operational-carbon: 29.909685
+              ssd: 0
+              hdd: 0
+              gpu: 0
+              usage-ratio: 1
+              embodied-carbon: 31.39269406392694
+              carbon: 61.302379063926935
+              sci: 0.6130237906392694
+          aggregated:
+            carbon: 182.1208201917808
+            sci: 0.45315378408043
+        child-component-2:
+          defaults:
+            vCPUs: 2
+            memory: 16
+            SSD: 1
+          pipeline:
+            compute:
+              - memory-to-energy
+              - interpolate-power-curve
+              - tdp-multiplier-to-power
+              - power-to-energy-kwh
+              - sum-energy-components
+              - energy-to-carbon
+              - embodied-carbon
+              - sum-carbon-components
+              - sci
+          inputs:
+            - timestamp: 2023-08-01T00:00
+              duration: 3600
+              memory-utilization: 5.8
+              cpu-utilization: 70
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 210
+            - timestamp: 2023-08-02T00:00
+              duration: 3600
+              memory-utilization: 23
+              cpu-utilization: 50
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 130
+            - timestamp: 2023-08-03T00:00
+              duration: 3600
+              memory-utilization: 19.5
+              cpu-utilization: 40
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 100
+          outputs:
+            - timestamp: 2023-08-01T00:00
+              duration: 3600
+              memory-utilization: 5.8
+              cpu-utilization: 70
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 210
+              vCPUs: 2
+              memory: 16
+              SSD: 1
+              memory-energy-kwh: 0.0022619999999999997
+              tdp-multiplier: 0.858
+              cpu-power: 175.89
+              cpu-energy-kwh: 0.17589
+              energy: 0.17815199999999998
+              operational-carbon: 29.038775999999995
+              ssd: 0
+              hdd: 0
+              gpu: 0
+              usage-ratio: 1
+              embodied-carbon: 31.39269406392694
+              carbon: 60.43147006392694
+              sci: 0.28776890506631875
+            - timestamp: 2023-08-02T00:00
+              duration: 3600
+              memory-utilization: 23
+              cpu-utilization: 50
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 130
+              vCPUs: 2
+              memory: 16
+              SSD: 1
+              memory-energy-kwh: 0.00897
+              tdp-multiplier: 0.75
+              cpu-power: 153.75
+              cpu-energy-kwh: 0.15375
+              energy: 0.16272
+              operational-carbon: 26.52336
+              ssd: 0
+              hdd: 0
+              gpu: 0
+              usage-ratio: 1
+              embodied-carbon: 31.39269406392694
+              carbon: 57.916054063926936
+              sci: 0.44550810818405334
+            - timestamp: 2023-08-03T00:00
+              duration: 3600
+              memory-utilization: 19.5
+              cpu-utilization: 40
+              tdp: 205
+              memory-coefficient: 0.00039
+              carbon-intensity: 163
+              site-visits: 100
+              vCPUs: 2
+              memory: 16
+              SSD: 1
+              memory-energy-kwh: 0.007605
+              tdp-multiplier: 0.6425
+              cpu-power: 131.7125
+              cpu-energy-kwh: 0.1317125
+              energy: 0.1393175
+              operational-carbon: 22.708752500000003
+              ssd: 0
+              hdd: 0
+              gpu: 0
+              usage-ratio: 1
+              embodied-carbon: 31.39269406392694
+              carbon: 54.10144656392694
+              sci: 0.5410144656392695
+          aggregated:
+            carbon: 172.4489706917808
+            sci: 0.4247638262965472
+      outputs:
+        - carbon: 122.85806012785388
+          sci: 0.5850383815612089
+          timestamp: 2023-08-01T00:00
+          duration: 3600
+        - carbon: 116.30790512785387
+          sci: 0.8946761932911836
+          timestamp: 2023-08-02T00:00
+          duration: 3600
+        - carbon: 115.40382562785388
+          sci: 1.1540382562785387
+          timestamp: 2023-08-03T00:00
+          duration: 3600
+      aggregated:
+        carbon: 354.5697908835616
+        sci: 0.8779176103769771
+  outputs:
+    - carbon: 185.28465019178083
+      sci: 0.882307858056099
+      timestamp: 2023-08-01T00:00
+      duration: 3600
+    - carbon: 172.1100529417808
+      sci: 1.3239234841675447
+      timestamp: 2023-08-02T00:00
+      duration: 3600
+    - carbon: 180.66465969178083
+      sci: 1.8066465969178083
+      timestamp: 2023-08-03T00:00
+      duration: 3600
+  aggregated:
+    carbon: 538.0593628253424
+    sci: 1.3376259797138175

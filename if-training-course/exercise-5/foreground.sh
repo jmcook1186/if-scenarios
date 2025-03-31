@@ -26,12 +26,12 @@ npm -v # Should print "10.9.2".
 npm install -g npm@11.1.0
 npm install -g @grnsft/if
 
-# *** Downloading manifest files ***"
+# *** Downloading IMP files ***"
 #
 wget https://raw.githubusercontent.com/jmcook1186/if-scenarios/refs/heads/main/if-training-course/exercise-5/manifest-example.yml
 wget https://raw.githubusercontent.com/jmcook1186/if-scenarios/refs/heads/main/if-training-course/exercise-5/boilerplate.yml
 
-
+mv manifest-example.yml imp-example.yml
 #
 #*** Setup complete! ***
 #

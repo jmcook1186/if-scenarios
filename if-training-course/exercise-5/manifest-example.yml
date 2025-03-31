@@ -46,9 +46,30 @@ initialize:
           - memory-energy-kwh
           - cpu-energy-kwh
         output-parameter: energy
+    embodied-carbon:
+      path: builtin
+      method: SciEmbodied
+    sum-carbon-components:
+      path: "builtin"
+      method: Sum
+      config:
+        input-parameters:
+          - operational-carbon
+          - embodied-carbon
+        output-parameter: carbon
+    sci:
+      method: Sci
+      path: "builtin"
+      config:
+        functional-unit: site-visits
+ 
 tree:
   children:
     component-1:
+      defaults:
+        vCPUs: 2
+        memory: 16
+        SSD: 1
       pipeline:
         compute:
           - memory-to-energy
@@ -57,11 +78,15 @@ tree:
           - power-to-energy-kwh
           - sum-energy-components
           - energy-to-carbon
+          - embodied-carbon
+          - sum-carbon-components
+          - sci
       inputs:
-        - timestamp: 2023-08-06T00:00
+        - timestamp: 2023-08-01T00:00
           duration: 3600
           memory-utilization: 8.8
           cpu-utilization: 80
           tdp: 205
           memory-coefficient: 0.00039
           carbon-intensity: 163
+          site-visits: 210

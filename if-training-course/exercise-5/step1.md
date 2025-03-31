@@ -11,7 +11,7 @@ In the previous example, you did
 
 So what remains is to determine a functional unit and divide your `carbon` value by it to yield SCI.
 
-Open your manifest (`boilerplate.yml`). It contains everythign you did to complete the previous exercise, and it calculates `carbon`.
+Open your IMP (`boilerplate.yml`). It contains everythign you did to complete the previous exercise, and it calculates `carbon`.
 
 ## Choosing a functional unit
 

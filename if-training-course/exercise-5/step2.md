@@ -20,7 +20,7 @@ That's it! Imapct Framework will calculate SCI and add it to your outputs.
 Try it now with:
 
 ```
-if-run -m manifest.yml -o outputs.yaml
+if-run -m imp.yml -o outputs.yaml
 ```
 
 Your SCI score was 0.11 gCO2e/visit!

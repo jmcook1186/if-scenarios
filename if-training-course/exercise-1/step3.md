@@ -1,12 +1,12 @@
-Now you know how the manifest is structured, you can run the manifest.
+Now you know how the IMP is structured, you can run the IMP.
 
-To do this, use the `if-run` command, passing the path to the manifest file, as follows:
+To do this, use the `if-run` command, passing the path to the IMP file, as follows:
 
-`if-run -m manifest-1.yaml` 
+`if-run -m imp-1.yaml` 
 
 You will see new yaml data displayed in your terminal.
 
-Impact framework has taken your manifest file, executed each plugin in each pipeline, and added the output data to your file in a new block of yaml named `outputs`.
+Impact framework has taken your IMP file, executed each plugin in each pipeline, and added the output data to your file in a new block of yaml named `outputs`.
 
 Every component has its own `outputs` section. Inside is the `input` data plus any new fields created during the execution of the plugins.
 
@@ -41,12 +41,12 @@ memory:
 
 You will also notice that fields named `aggregated` have also been created. Each `aggregate` section contains the aggregated values for `carbon` and `sci` from all the nodes in the tree below it. There is an `aggregate` block for every level in the tree, right up to the root, whgere the aggregated values for the entire system are found.
 
-Finally, you'll also find a new section called `execution` added to the original manifest. This captures the details of the environment used to run this manifest.
+Finally, you'll also find a new section called `execution` added to the original IMP. This captures the details of the environment used to run this IMP.
 
 You also have the option to redirect the output to a file instead of the terminal. To do this, use the `--output` or `-o` command, as follows:
 
 ```
-if-run -m manifest-1.yaml -o output-1.yaml
+if-run -m imp-1.yaml -o output-1.yaml
 ```
 
-Your output file will be saved next to your manifest file.
+Your output file will be saved next to your IMP file.

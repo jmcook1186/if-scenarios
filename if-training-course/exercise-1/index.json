@@ -1,6 +1,6 @@
 {
   "title": "Impact Framework: Exercise 1",
-  "description": "Run your first manifest file!",
+  "description": "Run your first IMP file!",
   "details": {
     "intro": {
       "text": "text.md",
@@ -8,7 +8,7 @@
     },
     "steps": [
       {
-        "title": "View the manifest file",
+        "title": "View the IMP file",
         "text": "step1.md"
       },
       {
@@ -16,7 +16,7 @@
         "text": "step2.md"
       },
       {
-        "title": "Run the manifest file",
+        "title": "Run the IMP file",
         "text": "step3.md"
       }
     ],

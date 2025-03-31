@@ -1,6 +1,6 @@
 Start by opening the `boilerplate.yml` file in your editor.
 
-The calculation we want to express in the manifest file is the product of energy consumption (kWh) and grid carbon intensity (gCO2e/kWh) to yield carbon emissions (gCO2e).
+The calculation we want to express in the IMP file is the product of energy consumption (kWh) and grid carbon intensity (gCO2e/kWh) to yield carbon emissions (gCO2e).
 
 The grid carbon intensity is taken to be 163 g / kWh.
 The energy consumption is 0.05 kWh.
@@ -12,9 +12,9 @@ The difference between them is that `Coefficient` multiplies a named value from 
 
 ## 2. Create an instance of the plugin
 
-The manifest contains a section called `plugins`. This is where you create instances of plugins that will be executed when Impact Framework runs. This is where your plugin instances are named and configured. In this example, we'll assume the energy consumption data is found in `inputs` and the grid carbon intensity is a coefficient whose value is known in advance and can be provided in the plugin `config`.
+The IMP contains a section called `plugins`. This is where you create instances of plugins that will be executed when Impact Framework runs. This is where your plugin instances are named and configured. In this example, we'll assume the energy consumption data is found in `inputs` and the grid carbon intensity is a coefficient whose value is known in advance and can be provided in the plugin `config`.
 
-To create an instance of `Coefficient` named `multiply-energy-by-carbon-intensity-component-1` that will grab `energy` dtaa from `inputs`, multiply it by `163` and return the result to `outputs` as `carbon`, you can add the following to the `plugins` section of the manifest:
+To create an instance of `Coefficient` named `multiply-energy-by-carbon-intensity-component-1` that will grab `energy` dtaa from `inputs`, multiply it by `163` and return the result to `outputs` as `carbon`, you can add the following to the `plugins` section of the IMP:
 
 ```yaml
 multiply-energy-by-carbon-intensity-component-1:
@@ -28,7 +28,7 @@ multiply-energy-by-carbon-intensity-component-1:
 
 ## 3. Define a component
 
-Now you have a plugin instance, you need a component where it will run. In this example, there is only one component. In a real manifest, it's likely that you'll have many components, possibly nested in complex arrangements.
+Now you have a plugin instance, you need a component where it will run. In this example, there is only one component. In a real IMP, it's likely that you'll have many components, possibly nested in complex arrangements.
 
 A component is just a block of yaml that conforms to a simple structure. It has a `name`, `pipeline` and `inputs`. There is also an optional `defaults` field.
 
@@ -57,16 +57,16 @@ component-1:
 ```
 
 
-Now you can update `boilerplate.yml`. Instantiate the plugin and create the component. If you need help, there is a completed manifest available in `manifest-example.yml`.
+Now you can update `boilerplate.yml`. Instantiate the plugin and create the component. If you need help, there is a completed IMP available in `imp-example.yml`.
 
-Save your manifest as `manifest.yml`
+Save your IMP as `imp.yml`
 
-## Run the manifest
+## Run the IMP
 
-Run the manifest using:
+Run the IMP using:
 
 ```sh
-if-run -m manifest.yml -o outputs.yml
+if-run -m IMP.yml -o outputs.yml
 ```
 
 

@@ -14,9 +14,9 @@ aggregated:
 
 These blocks include the time-aggregated `carbon` and `sci` values for each time series.
 
-There was one component (`component-2`) in the manifest that was composed of two children (`child-component-1` and `child-component-2`).
+There was one component (`component-2`) in the IMP that was composed of two children (`child-component-1` and `child-component-2`).
 
-Notice that `component-2` has its own `outputs` secton in `outputs.yml` even though it did not have its own `inputs` section in `manifest.yml`.
+Notice that `component-2` has its own `outputs` secton in `outputs.yml` even though it did not have its own `inputs` section in `imp.yml`.
 
 This is because a new `outputs` block was added by Impact Framework to contain the aggregated time series from `child-component-1` and `child-component-2`.
 

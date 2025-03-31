@@ -1,6 +1,6 @@
 {
   "title": "Impact Framework: Exercise 3",
-  "description": "Multi-plugin manifests",
+  "description": "Multi-plugin IMP",
   "details": {
     "intro": {
       "text": "text.md",
@@ -8,7 +8,7 @@
     },
     "steps": [
       {
-        "title": "Creating your manifest",
+        "title": "Creating your IMP",
         "text": "step1.md"
       },
       {

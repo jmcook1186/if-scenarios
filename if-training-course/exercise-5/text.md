@@ -4,7 +4,7 @@ On the right hand panel you have terminal access to an environment with Impact F
 
 You also have two files:
 
-`boilerplate.yml` : this contains the manifest file you completed in the previous exercise, ready for you to extend.
-`manifest-example.yml`: this is a completed example that you can refer to when you need to.
+`boilerplate.yml` : this contains the IMP file you completed in the previous exercise, ready for you to extend.
+`imp-example.yml`: this is a completed example that you can refer to when you need to.
 
 This is all you need to complete this exercise!
